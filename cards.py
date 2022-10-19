@@ -24,14 +24,14 @@ class card:
         return self.cardvalue
     def suit(self):
         return self.cardsuit
-            
+
 # This is a utility class for making random numbers
 class ran:
     def ranint(self, n):
         return int(n*random.random())
     def ranfloat(self):
         return random.random()
-    
+
 # The class stack holds a stack of cards
 class hand:
     def __init__(self):
@@ -40,7 +40,7 @@ class hand:
     def printhand(self):
         print("Cards:")
         for card in self.stack:
-            card.printcard() 
+            card.printcard()
     def __repr__(self): return "Hand with %d cards"%(self.ncards)
     def append(self, card): self.stack.append(card)
     def pop(self): self.stack.pop()
@@ -71,7 +71,7 @@ class deck:
     def __init__(self):
         self.deck=[]
         self.suits=['S','C','H','D']
-        self.values={'A':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,'J':10,'Q':10,'K':10}
+        self.values={'A':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':10,'9':10,'10':10,'J':10,'Q':10,'K':10}
         self.kinds=['A','2','3','4','5','6','7','8','9','10','J','Q','K']
         for suit in self.suits:
             for kind in self.kinds:
@@ -84,16 +84,6 @@ class deck:
             card.printcard()
             i+=1
     def shuffle(self):
-        newdeck=[]
-        ncards=len(self.deck)
-        ranclass=ran()
-        while (ncards>0):
-            nextcard=ranclass.ranint(ncards)
-            #print "appending:", self.deck[nextcard].printcard()
-            newdeck.append(self.deck[nextcard])
-            self.deck.remove(self.deck[nextcard])
-            ncards-=1
-        self.deck=newdeck
+        random.shuffle(self.deck)
     def dealcard(self): return self.deck.pop()
     def cardsleft(self): return len(self.deck)
-

@@ -15,8 +15,8 @@ import copy
 ################ Define Python classes for simulation ########################
 class playerclass:
     def __init__(self):
-        self.holdlimit={'A':18,'2':15,'3':15,'4':15,'5':14,'6':14,'7':17,\
-                        '8':17,'9':18,'10':18,'J':17,'Q':17,'K':17}
+        self.holdlimit={'A':17,'2':17,'3':17,'4':17,'5':17,'6':17,'7':17,\
+                        '8':17,'9':17,'10':17,'J':17,'Q':17,'K':17}
         self.status="Hit"
     def return_status(self):
         return self.status
@@ -36,7 +36,7 @@ class playerclass:
         #if hand.value()>=17:
             self.status="Hold"
         return
-    
+
 # The class dealer encompasses the dealer's strategy
 class dealerclass:
     def __init__(self):
@@ -74,14 +74,14 @@ class card:
         return self.cardvalue
     def suit(self):
         return self.cardsuit
-            
+
 # This is a utility class for making random numbers
 class ran:
     def ranint(self, n):
         return int(n*random.random())
     def ranfloat(self):
         return random.random()
-    
+
 # The class stack holds a stack of cards
 class hand:
     def __init__(self):
@@ -90,7 +90,7 @@ class hand:
     def printhand(self):
         print("Cards:")
         for card in self.stack:
-            card.printcard() 
+            card.printcard()
     def append(self, card): self.stack.append(card)
     def pop(self): self.stack.pop()
     def card(self, index): return self.stack[index]
@@ -132,21 +132,12 @@ class deck:
             card.printcard()
             i+=1
     def shuffle(self):
-        newdeck=[]
-        ncards=len(self.deck)
-        ranclass=ran()
-        while (ncards>0):
-            nextcard=ranclass.ranint(ncards)
-            #print "appending:", self.deck[nextcard].printcard()
-            newdeck.append(self.deck[nextcard])
-            self.deck.remove(self.deck[nextcard])
-            ncards-=1
-        self.deck=newdeck
+        random.shuffle(self.deck)
     def dealcard(self): return self.deck.pop()
     def cardsleft(self): return len(self.deck)
 
 # Utility class for building histograms
-class histogram:         
+class histogram:
     def __init__(self, nbins, binstart, binend):
         self.maxbars=30     #Maximum number bars in printed histogram
         self.nbins=nbins
@@ -187,4 +178,3 @@ class histogram:
             bars=int(self.maxbars*float(self.data[i])/float(maxdata))
             print('%2.2lf-%2.2lf: %-4d %s' % (self.bins[i],self.bins[i+1],
                                            self.data[i],bars*"="))
-  
